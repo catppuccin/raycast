@@ -1,6 +1,7 @@
 ---
 whiskers:
-  version: "2.1.0"
+  version: "2.2.0"
+  filename: "README.md"
 ---
 <h3 align="center">
   <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/logos/exports/1544x1544_circle.png" width="100" alt="Logo"/><br/>
@@ -21,18 +22,10 @@ whiskers:
 
 ## Previews
 
-{%- for id, flavor in flavors %}
+{%- for _, flavor in flavors %}
 <details>
-{%- if id == "latte" %}
-<summary>🌻 Latte</summary>
-{%- elif id == "frappe" %}
-<summary>🪴 Frappé</summary>
-{%- elif id == "macchiato" %}
-<summary>🌺 Macchiato</summary>
-{%- else %}
-<summary>🌿 Mocha</summary>
-{%- endif %}
-<img src="./assets/{{id}}.webp"/>
+<summary>{{ flavor.emoji }} {{ flavor.name }}</summary>
+<img src="./assets/{{ flavor.identifier }}.webp"/>
 </details>
 {%- endfor %}
 
@@ -40,21 +33,9 @@ whiskers:
 
 Click one of the following links to install the theme to your profile:
 
-{%- for id, flavor in flavors -%}
+{%- for _, flavor in flavors -%}
 {%- set palette = flavor.colors %}
-
-{%- if id == "latte" %}
-{%- set emoji = "🌻" %}
-{%- elif id == "frappe" %}
-{%- set emoji = "🪴" %}
-{%- elif id == "macchiato" %}
-{%- set emoji = "🌺" %}
-{%- else %}
-{%- set emoji = "🌿" %}
-{%- endif %}
-
-- [{{ emoji }} {{ flavor.name }}](https://themes.ray.so?version=1&name=Catppuccin%20{{ flavor.name }}&colors=%23{{ palette.base.hex }},%23{{ palette.base.hex }},%23{{ palette.text.hex }},%23{{ palette.overlay0.hex }},%23{{ palette.overlay1.hex }},%23{{ palette.red.hex }},%23{{ palette.peach.hex }},%23{{ palette.yellow.hex }},%23{{ palette.green.hex }},%23{{ palette.blue.hex }},%23{{ palette.lavender.hex }},%23{{ palette.mauve.hex }}&appearance={%- if flavor.dark == true -%}dark{%- else -%}light{%- endif -%})
-
+- [{{ flavor.emoji }} {{ flavor.name }}](https://themes.ray.so?version=1&name=Catppuccin%20{{ flavor.name }}&colors=%23{{ [palette.base, palette.base, palette.text, palette.overlay0, palette.overlay1, palette.red, palette.peach, palette.yellow, palette.green, palette.blue, palette.lavender, palette.mauve] | map(attribute="hex") | join(sep=",%23") }}&appearance={%- if flavor.dark == true -%}dark{%- else -%}light{%- endif -%})
 {%- endfor %}
 
 ## 🙋 FAQ
